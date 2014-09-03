@@ -1,0 +1,7 @@
+parameters:
+#    ssa_photo.example.class: Ssa\PhotoBundle\Example
+
+services:
+#    ssa_photo.example:
+#        class: %ssa_photo.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
