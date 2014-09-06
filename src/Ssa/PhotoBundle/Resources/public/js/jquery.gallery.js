@@ -119,7 +119,7 @@ $(function() {
         current=1;
         $('#imageWrapper').empty();
         $('#loading').show();
-        $.get('ajax/thumbs.php?album='+album, function(data) {
+        $.get('http://photobox.local/app_dev.php/list/'+album, function(data) {
             var countImages = data.length;
             var count = 0;
             var $tContainer = $('<div/>',{

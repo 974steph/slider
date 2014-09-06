@@ -1,3 +1,7 @@
 ssa_photo_homepage:
     path:     /
     defaults: { _controller: SsaPhotoBundle:Default:index }
+
+ssa_photo_list:
+    path:     /list/{dossier}
+    defaults: { _controller: SsaPhotoBundle:Default:list}

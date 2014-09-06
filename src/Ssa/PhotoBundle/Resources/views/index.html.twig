@@ -36,9 +36,12 @@
             </span>
             <div id="albumSelect" class="albumSelect">
                 <ul>
+                {% for item in dossier %}
+            		<li><a>{{ item }}</a></li>
+        		{% endfor %}
    
                 </ul>
-                <div class="title down"></div>
+                <div class="title down">{{ dossier[0] }}</div>
             </div>
         </div>
         <div id="loading"></div>
