@@ -1,0 +1,6 @@
+ssa_photo:
+    resource: "@SsaPhotoBundle/Resources/config/routing.yml"
+    prefix:   /
+_imagine:
+    resource: .
+    type:     imagine
