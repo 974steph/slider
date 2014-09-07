@@ -1,0 +1,8 @@
+Ssa\UserBundle\Entity\User:
+    type:  entity
+    table: slider_user
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
