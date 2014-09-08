@@ -1,3 +1,7 @@
+ssa_user:
+    resource: "@SsaUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ssa_photo:
     resource: "@SsaPhotoBundle/Resources/config/routing.yml"
     prefix:   /

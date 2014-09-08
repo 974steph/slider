@@ -115,11 +115,14 @@ $(function() {
     An AJAX request is made to retrieve the
     photo locations of the selected album
     */
+   
     function buildThumbs(){
         current=1;
         $('#imageWrapper').empty();
         $('#loading').show();
-        $.get('http://photobox.local/app_dev.php/list/'+album, function(data) {
+        var urlservice=$('#id_service').val();
+        
+        $.get(urlservice.replace("null", "")+album, function(data) {
             var countImages = data.length;
             var count = 0;
             var $tContainer = $('<div/>',{
