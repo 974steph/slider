@@ -1,0 +1,17 @@
+Ssa\PhotoBundle\Entity\Book:
+    type: entity
+    table: slider_book
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        path:
+            type: string
+            length: 255
+        comment:
+            type: string
+            length: '500'
+    lifecycleCallbacks: {  }
