@@ -1,6 +1,7 @@
 $(function() {
     /* name of the selected album, in the top right combo box */
-    var album	= $('#albumSelect div').html();
+    //var album	= $('#albumSelect div').html();
+    var album	= $('#albumSelect div').attr('id');
     /* mode is small or expanded, depending on the picture size  */
     var mode = 'small';
     /* this is the index of the last clicked picture */
@@ -40,12 +41,15 @@ $(function() {
             openAlbumCombo();
     });
     $('#albumSelect ul > li').bind('click',function(){
+       
         var $this 	= $(this);
-        album 		= $this.find('a').html();
+        albumtext   = $this.find('a').html();
+        album= $this.find('a').attr('id');
+        //console.log ("SsA", $this.find('a').attr('id')) ;
         buildThumbs();
         var $combo = $('#albumSelect div');
         $this.find('a').html($combo.html());
-        $combo.html(album);
+        $combo.html(albumtext);
         closeAlbumCombo();
         orderCombo($this.parent());
     });

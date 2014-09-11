@@ -5,6 +5,7 @@ namespace Ssa\PhotoBundle\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Finder;
+use Ssa\PhotoBundle\Entity\Book;
 
 class DefaultController extends Controller
 {
@@ -18,34 +19,32 @@ class DefaultController extends Controller
 
 	public function indexAction()
 	{
-		$chemin=$this->get('kernel')->getRootDir();
-		//calcul liste des dossiers
-                
-	
-		$path= array();
-		$finder = new Finder();
-		$finder->directories()->in($chemin.'/../web/images');
-
-		foreach ($finder as $dossier) {
-		 	 $path[] = str_replace("/","|",$dossier->getRelativePathname());
-		}
-		return $this->render('SsaPhotoBundle::index.html.twig', array('dossier'=>$path));
+            
+            
+            $em = $this->getDoctrine()->getManager();
+            $books=$em->getRepository('SsaPhotoBundle:Book')->findAll();
+            return $this->render('SsaPhotoBundle::index.html.twig',  array('books'=>$books,'first'=>reset($books)));
 
 	}
 
 	public function listAction($dossier)
-        {   $chemin=$this->get('kernel')->getRootDir();
+        {   
+            
+            $em = $this->getDoctrine()->getManager();
+            $book=$em->getRepository('SsaPhotoBundle:Book')->find($dossier);
+            
+            $chemin=$this->get('kernel')->getRootDir();
             $imagesArr	= array();
-            $dossier=str_replace("|","/",$dossier);
+            
             $avalancheService = $this->get('imagine.cache.path.resolver');
             $finder = new Finder();
-            $finder->files()->in($chemin.'/../web/images/'.$dossier);
+            $finder->files()->in($chemin.'/../web/images/'.$book->getPath());
 
             foreach ($finder as $files)
             {
-                    $path= $avalancheService->getBrowserPath('/images/'.$dossier.'/'.$files->getRelativePathname(), 'thumb');
+                    $path= $avalancheService->getBrowserPath('/images/'.$book->getPath().'/'.$files->getRelativePathname(), 'thumb');
                     $imagesArr[] = array('src' => $path,
-                                         'alt'	=> '/images/'.$dossier.'/'.$files->getRelativePathname(),
+                                         'alt'	=> '/images/'.$book->getPath().'/'.$files->getRelativePathname(),
                                          'desc'	=> "");
             }
 

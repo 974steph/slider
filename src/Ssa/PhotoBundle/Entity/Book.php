@@ -24,8 +24,12 @@ class Book
      */
     private $comment;
 
-
     /**
+     * @var string
+     */
+     private $name;
+    
+     /**
      * Get id
      *
      * @return integer 
@@ -35,6 +39,30 @@ class Book
         return $this->id;
     }
 
+    
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Book
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+    
     /**
      * Set path
      *
