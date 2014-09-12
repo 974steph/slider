@@ -24,10 +24,7 @@ class Book
      */
     private $comment;
 
-    /**
-     * @var string
-     */
-     private $name;
+    
     
      /**
      * Get id
