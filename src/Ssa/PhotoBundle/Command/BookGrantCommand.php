@@ -28,72 +28,70 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 );
  */
 
-class BookListCommand extends ContainerAwareCommand
+class BookGrantCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('book:list')
-            ->setDescription('list and register book')
+            ->setName('book:grant')
+            ->setDescription('grant view rule on book')
+            ->addArgument(
+                    'user',
+                    InputArgument::REQUIRED,
+                    'utilsateur ?'
+                )
+            ->addArgument(
+                    'book',
+                    InputArgument::REQUIRED,
+                    'books'
+                )
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $myUser = $input->getArgument('user') ;
+        $myBook = $input->getArgument('book') ;
         
+        
+        $output->writeln( "grant $myUser  on $myBook");
         
         $container = $this->getApplication()->getKernel()->getContainer();
-        //$chemin= $this->getContainer()->get('kernel')->getRootDir();
-        $chemin= $container->get('kernel')->getRootDir();
         
-
-
-        $path= array();
-        $finder = new Finder();
-        $finder->directories()->in($chemin.'/../web/images');
-
-        
-
-        
-
         $doctrine = $container->get('doctrine');
-
         $em = $doctrine->getManager();
-        $books=$em->getRepository('SsaPhotoBundle:Book')->findAll();
         
+        $findUser=$em->getRepository('SsaUserBundle:User')->findBy(array('username' => $myUser));
+        $findBook=$em->getRepository('SsaPhotoBundle:Book')->findBy(array('path' => $myBook));
         
-        $nothingtodo=true;
-
-        foreach ($finder as $dossier)
+        if (count($findUser) != 0)
         {
-            $knowBook =  array_filter(
-                            $books,
-                            function ($e) use (&$dossier) {
-                                return $e->getPath() == $dossier->getRelativePathname();
-                            }
-                        );
-            if (empty($knowBook))
-            {  $nothingtodo=false;
-                $myBook= new Book();
-                $myBook->setPath($dossier->getRelativePathname());
-                $em->persist($myBook);
-                $em->flush();
-                
-                $this->SetOwner($myBook);
-                
-                
-                $output->writeln( "Ajout :".str_replace("/","|",$dossier->getRelativePathname()));
+            if (count($findBook) != 0)
+            {   
+                $book=$findBook[0];
+                $this->SetOwner($myUser,$book);
+                $output->writeln("Grant $myUser");
+
             }
+            else 
+            {
+                $output->writeln("<error>book $myBook don't exist</error>");
+              
+            }
+            
+        }
+        else
+        {
+            $output->writeln("<error>user $myUser don't exist</error>");
         }
         
-        if ($nothingtodo)
-        { $output->writeln( "Pas de nouveaux dossiers");
-            
-        }    
+        
+        
+        
         
     }
     
-    protected function SetOwner($obj)
+    protected function SetOwner($user,$obj)
     {
         
         $container = $this->getApplication()->getKernel()->getContainer();
@@ -108,8 +106,12 @@ class BookListCommand extends ContainerAwareCommand
             $acl = $aclProvider->createAcl($objectIdentity);
         }
         
-        $securityIdentity = new UserSecurityIdentity('admin', 'Ssa\UserBundle\Entity\User');
-        $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+        $builder = new MaskBuilder();
+        $builder ->add('VIEW');
+        $mask = $builder->get(); 
+        
+        $securityIdentity = new UserSecurityIdentity($user, 'Ssa\UserBundle\Entity\User');
+        $acl->insertObjectAce($securityIdentity, $mask);
         
         
         $aclProvider->updateAcl($acl);
