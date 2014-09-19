@@ -19,10 +19,19 @@ class DefaultController extends Controller
 
     public function indexAction()
     {  
-               
+        $securityContext = $this->get('security.context');
+        
         $em = $this->getDoctrine()->getManager();
         $books=$em->getRepository('SsaPhotoBundle:Book')->findAll();
-        return $this->render('SsaPhotoBundle::index.html.twig',  array('books'=>$books,'first'=>reset($books)));
+        
+        $grantedBooks =  array_filter(
+                            $books,
+                            function ($e) use (&$securityContext) {
+                                return $securityContext->isGranted('VIEW', $e);
+                            }
+                        );
+        
+        return $this->render('SsaPhotoBundle::index.html.twig',  array('books'=>$grantedBooks,'first'=>reset($grantedBooks)));
 
     }
 
