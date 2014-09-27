@@ -54,7 +54,7 @@ class BookGrantCommand extends ContainerAwareCommand
         $myBook = $input->getArgument('book') ;
         
         
-        $output->writeln( "grant $myUser  on $myBook");
+        
         
         $container = $this->getApplication()->getKernel()->getContainer();
         
