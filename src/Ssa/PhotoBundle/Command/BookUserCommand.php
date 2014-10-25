@@ -104,6 +104,7 @@ class BookUserCommand extends ContainerAwareCommand
         
       
         
+
         if (count($findUser) != 0)
         {   $params = array('userid'=>$findUser->getId());
             $stmt = $em
@@ -122,9 +123,36 @@ class BookUserCommand extends ContainerAwareCommand
             {
                 foreach ($result as $row)
                 {
-
-                    $this->output->writeln("Book  <comment>".$row['path']."</comment> -> Right <comment>".$row['mask']."</comment>");
+                    $builder = new MaskBuilder();
+                    $builder->add((integer)$row['mask']);
+                    $path= sprintf("[%-25s]",$row['path']);
+                    $this->output->writeln("Book ".
+                                            "<comment>".
+                                            $path.
+                                            "</comment>".
+                                            "\tright:\t".
+                                            "<comment>".
+                                            $builder->getPattern().
+                                            "</comment>"
+                            
+                                            );
                 }
+                        
+                $this->output->writeln("VIEW = <comment>V</comment>".
+               ", ".
+               "CREATE = <comment>C</comment>".
+               ", ".
+               "EDIT = <comment>E</comment>".
+               ", ".
+               "DELETE = <comment>D</comment>".
+               ", ".
+               "UNDELETE = <comment>U</comment>".
+               ", ".
+               "OPERATOR = <comment>O</comment>".
+               ", ".
+               "MASTER = <comment>M</comment>".
+               ", ".
+               "OWNER = <comment>N</comment>");
             }
             
         }
