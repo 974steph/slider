@@ -53,7 +53,10 @@ class DefaultController extends Controller
 
         $avalancheService = $this->get('imagine.cache.path.resolver');
         $finder = new Finder();
-        $finder->files()->in($chemin.'/../web/images/'.$book->getPath());
+        $finder->files()
+                ->in($chemin.'/../web/images/'.$book->getPath())
+                ->sortByName() 
+                ->depth ('== 0');
 
         foreach ($finder as $files)
         {
