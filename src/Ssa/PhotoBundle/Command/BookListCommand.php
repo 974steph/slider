@@ -65,24 +65,34 @@ class BookListCommand extends ContainerAwareCommand
         $nothingtodo=true;
 
         foreach ($finder as $dossier)
-        {
-            $knowBook =  array_filter(
-                            $books,
-                            function ($e) use (&$dossier) {
-                                return $e->getPath() == $dossier->getRelativePathname();
-                            }
-                        );
-            if (empty($knowBook))
-            {  $nothingtodo=false;
-                $myBook= new Book();
-                $myBook->setPath($dossier->getRelativePathname());
-                $em->persist($myBook);
-                $em->flush();
-                
-                $this->SetOwner($myBook);
-                
-                
-                $output->writeln( "Ajout :".str_replace("/","|",$dossier->getRelativePathname()));
+        {   
+            $file=new Finder();
+            $file->files()
+                  ->depth ('== 0')
+                  ->in($dossier->getRealpath());
+            
+            
+
+            if ($file->count() > 0)
+            {
+                $knowBook =  array_filter(
+                                $books,
+                                function ($e) use (&$dossier) {
+                                    return $e->getPath() == $dossier->getRelativePathname();
+                                }
+                            );
+                if (empty($knowBook))
+                {  $nothingtodo=false;
+                    $myBook= new Book();
+                    $myBook->setPath($dossier->getRelativePathname());
+                    $em->persist($myBook);
+                    $em->flush();
+
+                    $this->SetOwner($myBook);
+
+
+                    $output->writeln( "Ajout :".str_replace("/","|",$dossier->getRelativePathname()));
+                }
             }
         }
         
