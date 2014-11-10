@@ -13,7 +13,7 @@ body{
 .albumbar{
     height:24px;
     line-height:24px;
-    text-align:center;
+    text-align:left;
     position:fixed;
     background-color:#000;
     left:0px;
@@ -110,7 +110,12 @@ span#description, .albumbar span{
     position:absolute;
     right:5px;
     top:2px;
-    width:120px;
+    width:300px;
+    height: 400px;
+    overflow:hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*overflow : -moz-scrollbars-vertical;*/
 }
 .albumSelect .title{
     color:#f0f0f0;
@@ -147,6 +152,8 @@ span#description, .albumbar span{
 }
 .albumSelect ul li a{
     text-decoration:none;
+    text-align:left;
+    text-indent:10px;
     cursor:pointer;
     display:block;
     padding:3px 0px;
