@@ -5,3 +5,13 @@ ssa_photo_homepage:
 ssa_photo_list:
     path:     /list/{dossier}
     defaults: { _controller: SsaPhotoBundle:Default:list}
+ssa_photo_get:
+    path:     /image/{fichier}
+    defaults: { _controller: SsaPhotoBundle:Default:image}
+    requirements:
+      fichier: ".+"
+ssa_photo_cache:
+    path:     /thumb/{fichier}
+    defaults: { _controller: SsaPhotoBundle:Default:thumb}
+    requirements:
+      fichier: ".+"
