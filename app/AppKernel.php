@@ -16,8 +16,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Ssa\PhotoBundle\SsaPhotoBundle(),
-            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+            new Ssa\PhotoBundle\SsaPhotoBundle(),           
             new FOS\UserBundle\FOSUserBundle(),
 
             new Ssa\UserBundle\SsaUserBundle(),
