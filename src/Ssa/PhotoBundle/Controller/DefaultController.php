@@ -24,7 +24,9 @@ class DefaultController extends Controller
         $securityContext = $this->get('security.context');
         
         $em = $this->getDoctrine()->getManager();
-        $books=$em->getRepository('SsaPhotoBundle:Book')->findAll();
+         //$em->getRepository('BackendDestinyBundle:Destiny')->findBy(array(), array('title'=>'asc'));
+        //$books=$em->getRepository('SsaPhotoBundle:Book')->findAll();
+        $books=$em->getRepository('SsaPhotoBundle:Book')->findBy(array(), array('path'=>'asc'));
         
         $grantedBooks =  array_filter(
                             $books,
@@ -57,6 +59,9 @@ class DefaultController extends Controller
         $finder = new Finder();
         $finder->files()
                 ->in($chemin.'/../web/images/'.$book->getPath())
+                ->name('/.*\.jpg/i')
+                ->name('/.*\.png/i')
+                ->name('/.*\.gif/i')
                 ->sortByName() 
                 ->depth ('== 0');
 
