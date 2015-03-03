@@ -62,6 +62,7 @@ class DefaultController extends Controller
                 ->name('/.*\.jpg/i')
                 ->name('/.*\.png/i')
                 ->name('/.*\.gif/i')
+                ->name('/.*\.tiff/i')
                 ->sortByName() 
                 ->depth ('== 0');
 
