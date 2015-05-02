@@ -68,12 +68,13 @@ class DefaultController extends Controller
 
         foreach ($finder as $files)
         {
-                $uriImage = $this->get('router')->generate('ssa_photo_get',   array('fichier' => $book->getPath().'/'.$files->getRelativePathname() ));
+                //$uriImage = $this->get('router')->generate('ssa_photo_get',   array('fichier' => $book->getPath().'/'.$files->getRelativePathname() ));
                 
 
                 $uriImage =$this->container->get('templating.helper.assets')->getUrl('/images/'.$book->getPath().'/'.$files->getRelativePathname());
                 
-                $uriThumb = $this->get('router')->generate('ssa_photo_cache', array('fichier' => $book->getPath().'/'.$files->getRelativePathname() ));
+                //$uriThumb = $this->get('router')->generate('ssa_photo_cache', array('fichier' => $book->getPath().'/'.$files->getRelativePathname() ));
+                $uriThumb = "http://sautron.re:8080/resize/100x100/http://photobox.sautron.re/".$uriImage;
                
                 $imagesArr[] = array('src'      => $uriThumb,
                                      'alt'	=> $uriImage,
