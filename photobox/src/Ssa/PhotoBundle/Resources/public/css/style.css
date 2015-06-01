@@ -10,11 +10,19 @@ body{
     overflow:hidden;
     background-color:#f9f9f9;
 }
+.main{
+    width:100%;
+    display: block;
+}
+.photo{
+    display: block;
+    width:100%;
+}
 .albumbar{
-    height:24px;
-    line-height:24px;
+    height:25px;
+    line-height:20px;
     text-align:left;
-    position:fixed;
+    /*position:fixed;*/
     background-color:#000;
     left:0px;
     width:100%;
@@ -22,17 +30,20 @@ body{
     -moz-box-shadow:-2px 0px 4px #333;
     -webkit-box-shadow:-2px 0px 4px #333;
     box-shadow:-2px 0px 4px #333;
-    z-index:11;
+    display: block;
+    vertical-align: text-top;
+
+    /*z-index:11;*/
 }
 .infobar{
     height:22px;
     line-height:22px;
     text-align:center;
-    position:fixed;
+    /*position:fixed;*/
     background-color:#000;
     left:0px;
     width:100%;
-    bottom:0px;
+    /*bottom:0px;*/
     -moz-box-shadow:0px -1px 2px #000;
     -webkit-box-shadow:0px -1px 2px #000;
     box-shadow:0px -1px 2px #000;
@@ -40,6 +51,7 @@ body{
 span#description, .albumbar span{
     text-shadow:0px 0px 1px #fff;
     color:#fff;
+    vertical-align:top;
 }
 .albumbar span a{
     color:#aaa;
@@ -48,118 +60,13 @@ span#description, .albumbar span{
 .albumbar span a:hover{
     color:#ddd;
 }
-#loading{
-    display:none;
-    width:50px;
-    height:50px;
-    position:absolute;
-    top:40%;
-    left:50%;
-    margin-left:-24px;
-    background:transparent url(../images/loading.gif) no-repeat top left;
-}
-#thumbsWrapper{
+.menu {
     position: absolute;
-    width:100%;
-    height:102px;
-    overflow-y:hidden;
-    background-color:#000;
-    bottom:0px;
-    left:0px;
-    border-top:2px solid #000;
-}
-#thumbsContainer{
-    height:79px;
-    display:block;
-    margin: 0;   
-}
-#thumbsWrapper img{
-    float:left;
-    margin:2px;
-    display:block;
-    cursor:pointer;
-    opacity:0.4;
-    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=40);
-}
-#imageWrapper{
-    position:relative;
-    padding-top:30px;
-    text-align:center;
-}
-#imageWrapper img{
-    margin:0 auto;
-    -moz-box-shadow:2px 2px 10px #111;
-    -webkit-box-shadow:2px 2px 10px #111;
-    box-shadow:2px 2px 10px #111;
-}
-.cursorRight{
-   cursor:url("../images/next.cur"),url("images/next.cur"), default;
-}
-.cursorLeft{
-    cursor:url("../images/prev.cur"),url("images/prev.cur"), default;
-}
-.cursorPlus{
-    cursor:url("../images/plus.cur"),url("images/plus.cur"), default;
-}
-.cursorMinus{
-    cursor:url("../images/minus.cur"),url("images/minus.cur"), default;
-}
-.albumSelect{
-    height:18px;
-    line-height:18px;
-    position:absolute;
-    right:5px;
-    top:2px;
-    width:300px;
-    height: 400px;
-    overflow:hidden;
-    overflow-x: hidden;
-    overflow-y: auto;
-    /*overflow : -moz-scrollbars-vertical;*/
-}
-.albumSelect .title{
-    color:#f0f0f0;
-    z-index:10;
-    border:1px solid #444;
-    background-color:#555;
-    background-repeat:no-repeat;
-    background-position:90% 50%;
-    cursor:pointer;
-    text-align:left;
-    text-indent:10px;
-    width:100%;   
-    position:absolute;
+    right: 0px;
     top:0px;
-    left:0px;
+    border:0px;
+    height: 100px;
+
 }
-.down{
-    background-image:url(../images/down.png);
-}
-.up{
-    background-image:url(../images/up.png);
-}
-.albumSelect ul {
-    list-style:none;
-    display:none;
-    padding:0px;
-    width:100%;
-    border:1px solid #444;
-    background-color:#555;
-    margin:22px 0px 0px 0px;
-    -moz-box-shadow:0px 0px 2px #000;
-    -webkit-box-shadow:0px 0px 2px #000;
-    box-shadow:0px 0px 2px #000;
-}
-.albumSelect ul li a{
-    text-decoration:none;
-    text-align:left;
-    text-indent:10px;
-    cursor:pointer;
-    display:block;
-    padding:3px 0px;
-    color:#ccc;
-}
-.albumSelect ul li a:hover{
-    background-color:#000;
-    color:#fff;
-}
+
+
