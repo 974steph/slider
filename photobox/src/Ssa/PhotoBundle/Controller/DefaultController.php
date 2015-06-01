@@ -34,14 +34,17 @@ class DefaultController extends Controller
                                 return $securityContext->isGranted('VIEW', $e);
                             }
                         );
-        
-        return $this->render('SsaPhotoBundle::index.html.twig',  array('books'=>$grantedBooks,'first'=>reset($grantedBooks)));
+                     
+         
+        $listPicture=$this->getListPictures(reset($grantedBooks)->getId());
+       
+        return $this->render('SsaPhotoBundle::index.html.twig',  array('books'=>$grantedBooks,'picts'=> $listPicture));
 
     }
 
-    public function listAction($dossier)
-    {   
-
+    public function getListPictures($dossier)
+    {
+       
         $em = $this->getDoctrine()->getManager();
         $book=$em->getRepository('SsaPhotoBundle:Book')->find($dossier);
 
@@ -72,15 +75,20 @@ class DefaultController extends Controller
                 
 
                 $uriImage =$this->container->get('templating.helper.assets')->getUrl('/images/'.$book->getPath().'/'.$files->getRelativePathname());
-                
-                //$uriThumb = $this->get('router')->generate('ssa_photo_cache', array('fichier' => $book->getPath().'/'.$files->getRelativePathname() ));
-                $uriThumb = "http://sautron.re:8080/resize/100x100/http://photobox.sautron.re/".$uriImage;
+                $uriThumb = "http://sautron.local:8080/resize/100x100".$uriImage;
                
-                $imagesArr[] = array('src'      => $uriThumb,
-                                     'alt'	=> $uriImage,
+                $imagesArr[] = array('thumb'      => $uriThumb,
+                                     'img'	=> $uriImage,
                                      'desc'	=> "");
         }
-
+        
+        return $imagesArr;
+        
+    }
+    
+    public function listAction($dossier)
+    {   
+        $imagesArr=$this->getListPictures($dossier) ;
         return new JsonResponse($imagesArr);
     }
     
